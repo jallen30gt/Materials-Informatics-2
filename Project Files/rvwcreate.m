@@ -13,9 +13,11 @@ n2 = str2double(height);
 depth = input('Voxel depth?', 's');
 n3 = str2double(depth);
 
-binaryimage = matfile(filename);
+binaryimage = load(filename);
 
-[x,y,z] = size(binaryimage);
+variable = fields(binaryimage);
+
+[x,y,z] = size(binaryimage.(variable{1}));
 
 if (x <= n1 || y <= n2 || z <= n3)
     
@@ -37,7 +39,7 @@ randxarray(1, num+1) = 0;
 randyarray(1, num+1) = 0;
 randzarray(1, num+1) = 0;
 
-voxel(numvoxwidth, numvoxheight, numvoxdepth) = 0;
+voxel(n1, n2, n3) = 0;
 
 newdirectory = input('New directory name?', 's');
 mkdir(newdirectory);
@@ -65,13 +67,13 @@ for i=1:num+1;
          
      end
   
-     for j=randxarray(1,i):randxarray(1,i)+numvoxwidth;
+     for j=1:n1;
          
-         for k=randyarray(1,i):randyarray(1,i)+numvoxheight;
+         for k=1:n2;
              
-             for l=randzarray(1,i):randxarray(1,i)+numvoxdepth;
+             for l=1:n3;
                  
-                 voxel(j,k,l) = binaryimage(j,k,l);
+                 voxel(j,k,l) = binaryimage.(variable{1})(randxarray(1,i)+j,randxarray(1,i)+k,randxarray(1,i)+l);
                  
              end
              
@@ -83,7 +85,7 @@ for i=1:num+1;
      
         newfilename = strcat('voxel', num2str(i));
      
-        save(newfilename, voxel);
+        save(newfilename, 'voxel');
      
      else
          
