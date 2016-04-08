@@ -47,33 +47,17 @@ mkdir(newdirectory);
 datafile = strcat('C:\Users\jallen30\Desktop\Grad Classes\CSE 8803 - Materials Informatics 2\Project\', newdirectory);
 cd(datafile);
 
-for i=1:num+1;    
+coords{1, num} = 0;
+counter = 1;
+
+     for r=1:numvoxheight;
          
-     randxarray(1,i) = ceil(rand(1)*numvoxwidth);
-     randyarray(1,i) = ceil(rand(1)*numvoxheight);
-     randzarray(1,i) = ceil(rand(1)*numvoxdepth);
-     
-     if (i>1)
-         for m=1:i-1;
-            while(randxarray(1,i) == randxarray(1,m) && randyarray(1,i) == randyarray(1,m) && randzarray(1,i) == randzarray(1,m))
-         
-                randxarray(1,i) = ceil(rand(1)*numvoxwidth);
-                randyarray(1,i) = ceil(rand(1)*numvoxheight);
-                randzarray(1,i) = ceil(rand(1)*numvoxdepth);
-        
-            end     
-         end
-     else
-         
-     end
-  
-     for j=1:n1;
-         
-         for k=1:n2;
+         for s=1:numvoxwidth;
              
-             for l=1:n3;
+             for t=1:numvoxheight;
                  
-                 voxel(j,k,l) = binaryimage.(variable{1})(randxarray(1,i)+j,randxarray(1,i)+k,randxarray(1,i)+l);
+                 coords{counter} = [r,s,t];
+                 counter = counter + 1;                 
                  
              end
              
@@ -81,16 +65,42 @@ for i=1:num+1;
           
      end
      
-     if(i<num+1)
      
+numspicked(1, num) = 0;
+     
+for i=1:num;    
+    
+    pick = ceil(rand(1)*numvox);
+    numspicked(1, i) = pick;
+         
+    while(pick == numspicked);
+      
+          pick = ceil(rand(1)*numvox);
+          numspicked(1, i) = pick;  
+        
+    end
+    
+    
+  
+     for j=1:n1;
+         
+         for k=1:n2;
+             
+             for l=1:n3;
+                 
+                 voxel(j,k,l) = binaryimage.(variable{1})((coords{numspicked(i)}(1))+(j-1),(coords{numspicked(i)}(2))+(k-1),(coords{numspicked(i)}(3))+(l-1));
+                 
+             end
+             
+         end
+          
+     end
+     
+       
         newfilename = strcat('voxel', num2str(i));
      
         save(newfilename, 'voxel');
-     
-     else
-         
-     end
-     
+  
 end
 
 
