@@ -33,13 +33,19 @@ numvoxdepth = floor(z/n3);
 
 numvox = numvoxwidth*numvoxheight*numvoxdepth;
 
-randxarray(1, numvox) = 0;
-randyarray(1, numvox) = 0;
-randzarray(1, numvox) = 0;
+randxarray(1, num+1) = 0;
+randyarray(1, num+1) = 0;
+randzarray(1, num+1) = 0;
 
 voxel(numvoxwidth, numvoxheight, numvoxdepth) = 0;
 
-for i=1:num;    
+newdirectory = input('New directory name?', 's');
+mkdir(newdirectory);
+     
+datafile = strcat('C:\Users\jallen30\Desktop\Grad Classes\CSE 8803 - Materials Informatics 2\Project\', newdirectory);
+cd(datafile);
+
+for i=1:num+1;    
          
      randxarray(1,i) = ceil(rand(1)*numvoxwidth);
      randyarray(1,i) = ceil(rand(1)*numvoxheight);
@@ -54,9 +60,7 @@ for i=1:num;
                 randzarray(1,i) = ceil(rand(1)*numvoxdepth);
         
             end     
-     
          end
-         
      else
          
      end
@@ -75,16 +79,15 @@ for i=1:num;
           
      end
      
-     newdirectory = input('New directory name?', 's');
-     mkdir(newdirectory);
+     if(i<num+1)
      
-     datafile = strcat('C:\Users\jallen30\Desktop\Grad Classes\CSE 8803 - Materials Informatics 2\Project\', newdirectory);
+        newfilename = strcat('voxel', num2str(i));
      
-     cd(datafile);
+        save(newfilename, voxel);
      
-     newfilename = strcat('voxel', num2str(i));
-     
-     save(newfilename, voxel);
+     else
+         
+     end
      
 end
 
