@@ -45,19 +45,27 @@ for i=1:num;
      randyarray(1,i) = ceil(rand(1)*numvoxheight);
      randzarray(1,i) = ceil(rand(1)*numvoxdepth);
      
-     while(max(randxarray(1,i) == randxarray) == 1 || max(randyarray(1,i) == randyarray) == 1 || max(randzarray(1,i) == randzarray) == 1)
+     if (i>1)
+         for m=1:i-1;
+            while(randxarray(1,i) == randxarray(1,m) && randyarray(1,i) == randyarray(1,m) && randzarray(1,i) == randzarray(1,m))
          
-        randxarray(1,i) = ceil(rand(1)*numvoxwidth);
-        randyarray(1,i) = ceil(rand(1)*numvoxheight);
-        randzarray(1,i) = ceil(rand(1)*numvoxdepth);
+                randxarray(1,i) = ceil(rand(1)*numvoxwidth);
+                randyarray(1,i) = ceil(rand(1)*numvoxheight);
+                randzarray(1,i) = ceil(rand(1)*numvoxdepth);
+        
+            end     
+     
+         end
          
-     end        
+     else
+         
+     end
   
-     for j=1:numvoxwidth;
+     for j=randxarray(1,i):randxarray(1,i)+numvoxwidth;
          
-         for k=1:numvoxheight;
+         for k=randyarray(1,i):randyarray(1,i)+numvoxheight;
              
-             for l=1:numvoxdepth;
+             for l=randzarray(1,i):randxarray(1,i)+numvoxdepth;
                  
                  voxel(j,k,l) = binaryimage(j,k,l);
                  
