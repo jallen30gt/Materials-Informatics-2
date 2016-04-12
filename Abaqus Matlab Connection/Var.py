@@ -1,0 +1,2 @@
+GridSpaceX = 1.000000000000
+GridSpaceY = 1.000000000000

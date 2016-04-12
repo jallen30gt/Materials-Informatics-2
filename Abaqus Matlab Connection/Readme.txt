@@ -1,0 +1,1 @@
+Run Main.m in Matlab to open Abaqus and create rectangular art with size GridSpaceX/GridSpaceY.
