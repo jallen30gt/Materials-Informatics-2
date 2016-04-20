@@ -44,7 +44,7 @@ voxel(n1, n2, n3) = 0;
 newdirectory = input('New directory name?', 's');
 mkdir(newdirectory);
      
-datafile = strcat('C:\Users\jallen30\Desktop\Grad Classes\CSE 8803 - Materials Informatics 2\Project\', newdirectory);
+datafile = strcat('/Users/awhite40/Documents/Github/Materials-Informatics-2/', newdirectory);
 cd(datafile);
 
 coords{1, num} = 0;
